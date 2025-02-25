@@ -1,0 +1,284 @@
+$pip-green: #00ff00;
+$pip-black: #000000;
+$pip-gray: #1a1a1a;
+$pip-glow: #00cc00;
+$retro-font: "Courier New", "Courier", monospace;
+$content-width: 50%;
+$min-content-width: 768px;
+
+// Scanline animation keyframes (moving horizontal bar)
+@keyframes scanline {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 0 100vh;
+  }
+}
+
+// Flicker animation for CRT effect
+@keyframes flicker {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.9;
+  }
+}
+// Hover lift animation (kept from your code)
+
+hr {
+  border: 1px solid $pip-green;
+  width: 100%;
+}
+
+body {
+  background-color: $pip-black;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  position: relative;
+  overflow: hidden;
+
+  // Background with black background and only the green moving line
+  background: linear-gradient(
+        to bottom,
+        rgba(0, 255, 0, 0.1) 1px,
+        transparent 1px
+      )
+      0 0,
+    linear-gradient(to right, rgba(0, 255, 0, 0.05) 1px, transparent 1px) 0 0,
+    rgba(0, 0, 0, 1); /* Solid black background */
+
+  background-size: 100% 10px, 10px 100%, 100% 100%; /* Only vertical and horizontal lines */
+  background-repeat: no-repeat; /* Prevent repeating */
+  animation: scanline 8s linear infinite; /* Moving green line */
+  z-index: 9999;
+}
+
+.pipboy-theme {
+  background-color: $pip-gray;
+  color: $pip-green;
+  font-family: $retro-font;
+  width: $content-width;
+  min-width: $min-content-width;
+  margin: 0 auto;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 0 20px rgba($pip-green, 0.2);
+  position: relative;
+  z-index: 2;
+  overflow: hidden;
+}
+
+.pipboy-header {
+  width: 100%;
+  padding: 1rem;
+  border-bottom: 1px solid $pip-gray;
+  box-shadow: 0 0 10px rgba($pip-green, 0.5);
+  text-align: center;
+  background-color: $pip-black;
+
+  h1 {
+    margin: 0;
+    font-size: 1.5rem;
+    text-shadow: 0 0 8px rgba($pip-green, 0.5);
+  }
+}
+
+.pipboy-nav {
+  width: 100%;
+  padding: 1rem;
+  background-color: $pip-black;
+  border-bottom: 1px solid rgba($pip-green, 0.2);
+
+  ul {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    gap: 2rem;
+  }
+
+  li {
+    flex: 0 1 auto;
+  }
+
+  a {
+    display: block;
+    padding: 0.5rem 2rem;
+    border-radius: 4px;
+    text-decoration: none;
+    color: $pip-green;
+    transition: all 0.3s ease;
+    border: 1px solid transparent;
+
+    &:hover {
+      background-color: rgba($pip-green, 0.05);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba($pip-green, 0.1), 0 0 4px rgba($pip-green, 0.1);
+
+      td {
+        color: $pip-glow;
+        text-shadow: 0 0 8px rgba($pip-green, 0.3);
+      }
+    }
+
+    &.active {
+      background-color: rgba($pip-green, 0.1);
+      border-color: rgba($pip-green, 0.3);
+      color: $pip-glow;
+      text-shadow: 0 0 8px rgba($pip-green, 0.5);
+    }
+  }
+}
+
+.pipboy-main {
+  flex: 1;
+  padding: 2rem;
+  width: 100%;
+  background-color: $pip-black;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+
+  > * {
+    width: 100%;
+    max-width: 800px;
+  }
+
+  h2 {
+    margin-bottom: 2rem;
+    font-size: 1.5rem;
+    text-shadow: 0 0 10px rgba($pip-glow, 0.5);
+  }
+
+  p {
+    margin: 1rem 0;
+    line-height: 1.6;
+  }
+}
+
+// Table styles
+// Updated table styles with selected asset and bullet
+table {
+  margin: 0 auto;
+  border-collapse: collapse;
+  width: 100%;
+
+  th,
+  td {
+    text-align: center;
+    padding: 1rem;
+    border-bottom: 1px solid rgba($pip-green, 0.2);
+    color: $pip-green;
+  }
+
+  tr {
+    transition: all 0.3s ease;
+
+    &:hover {
+      background-color: rgba($pip-green, 0.05);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba($pip-green, 0.1), 0 0 4px rgba($pip-green, 0.1);
+
+      td {
+        color: $pip-glow;
+        text-shadow: 0 0 8px rgba($pip-green, 0.3);
+      }
+    }
+
+    &.selected-asset {
+      background-color: rgba($pip-green, 0.1);
+      td {
+        color: $pip-glow;
+        text-shadow: 0 0 8px rgba($pip-green, 0.5);
+      }
+    }
+  }
+
+  // Green bullet for selected asset
+  .pip-bullet {
+    color: $pip-green;
+    text-shadow: 0 0 5px $pip-glow;
+    font-size: 1.2em;
+    margin-right: 10px;
+    text-align: left;
+  }
+
+  // Negative growth in red
+  td.text-red-500 {
+    color: #ff4444;
+
+    &:hover {
+      color: #ff6666;
+    }
+  }
+}
+
+.pip-item {
+  margin-top: 50px;
+}
+
+// Selected asset details panel
+// Selected asset details panel (removed pip-icon, kept other styling)
+.selected-asset-details {
+  background-color: $pip-black;
+  border: 1px solid $pip-gray;
+  padding: 1rem;
+  border-radius: 4px;
+  margin-top: 1rem;
+
+  p {
+    margin: 0.5rem 0;
+    color: $pip-green;
+  }
+
+  button {
+    margin: 0.25rem;
+    transition: all 0.3s ease;
+
+    &:hover {
+      background-color: rgba($pip-green, 0.1);
+      box-shadow: 0 0 5px $pip-glow;
+    }
+  }
+}
+
+// Responsive styles
+@media (max-width: 1200px) {
+  .pipboy-theme {
+    width: 70%;
+  }
+}
+
+@media (max-width: 992px) {
+  .pipboy-theme {
+    width: 80%;
+  }
+}
+
+@media (max-width: 768px) {
+  .pipboy-theme {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .pipboy-nav ul {
+    flex-direction: column;
+    gap: 1rem;
+
+    li {
+      flex: none;
+    }
+  }
+
+  .pipboy-main {
+    padding: 1rem;
+  }
+}
